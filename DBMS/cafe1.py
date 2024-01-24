@@ -7,7 +7,7 @@ app = customtkinter.CTk()
 app.title('Cafe')
 app.geometry("1000x400") # Adjust size of screen
 app.config(bg="#25283b")
-app.resizable(False,False)
+app.resizable(True,True)
 
 font1=('Arial',25,'bold')
 font2=('Arial',12,'bold')
@@ -15,15 +15,15 @@ font3=('Arial',25,'bold')
 price_list=[50,40,40]
 total_price=0
 
-bill_frame = customtkinter.CTkFrame(app,width=300,height=400,fg_color="#545457")
-bill_frame.place(x=700,y=0)
+bill_frame = customtkinter.CTkFrame(app,width=500,height=400,fg_color="#545457")
+bill_frame.place(x=800,y=0)
 
 menu_label=customtkinter.CTkLabel(app,text="My Cafe",font=font1,text_color="#FFFFFF",bg_color="#25283b")
 menu_label.place(x=230,y=5)
 
-img1=PhotoImage(file=r"idli_vada.png")
-img2=PhotoImage(file=r"masal.png")
-img3=PhotoImage(file=r"poori.png")
+img1=PhotoImage(file=r"DBMS/idli_vada.png")
+img2=PhotoImage(file=r"DBMS/masal.png")
+img3=PhotoImage(file=r"DBMS/poori.png")
 
 def pay():
     global total_price
@@ -82,7 +82,7 @@ quantity3_combobox.place(x=500,y=220)
 quantity3_combobox.set(0)
 
 customer_label=customtkinter.CTkLabel(app,text="Customer Name",font=font2,text_color="#FFFFFF",fg_color="#25283b")
-customer_label.place(x=40,y=300)
+customer_label.place(x=50,y=300)
 
 customer_entry=customtkinter.CTkEntry(app,font=font2,fg_color="#FFFFFF",text_color="#000000",border_color="#FFFFFF",width=200)
 customer_entry.place(x=200,y=300)
