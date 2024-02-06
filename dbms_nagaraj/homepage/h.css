@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600&family=Lemon&family=Patua+One&family=Poppins:wght@200;400;500;600;700;800;900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    overflow-x: hidden;
+    height: auto;
+    position: relative;
+    background-color: white;
+}
+
+/* nav{
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    margin-top: 10px;
+    
+} */
+nav .wrapper{
+    position: absolute;
+    top: 0;
+    height: 10vh;
+    width: 100%;
+}
+
+nav .nav-container{
+    width: 100%;
+    height: 100%;
+    margin:  0 60px;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* nav .nav-container img{
+    width: 60px;
+} */
+
+nav .nav-container .links a{
+    font-size: 1.3rem;
+    color: black;
+    text-decoration: none;
+    margin: 0 20px;
+    transition: 0.2s linear;
+}
+
+nav .nav-container .links a:hover{
+    color: rgb(124, 123, 123);
+    
+}
+
+
+
+section{
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+}
+
+
+
+.landingpage{
+   
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landingpage .content{
+    display: flex;
+    margin-top: 150px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.landingpage .content .heading{
+    margin-top: -100px;
+    max-width:460px ;
+    width: 100%;
+}
+
+.landingpage .content .heading h3{
+    color: red;
+    font-size: 1.6rem;
+}   
+.landingpage .content .heading h1{
+    color: black;
+    line-height: -2rem;
+    font-size: 4.5rem;
+}
+.landingpage .content .heading p{
+    color: black;
+    font-size: 1.2rem;
+}
+.landingpage .content .heading button{
+    width: 220px;
+    height: 50px;
+    margin: 20px;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px black;
+    letter-spacing: 1.5px;
+    word-spacing: 5px;
+    background: black;
+    color: white;
+    border-radius: 20px;
+    font-family: 'Patua One', serif;
+    transition: 0.5s linear;
+}
+
+.landingpage .content .heading button:hover{
+    scale: 1.05;
+}
+
+.landingpage .content .image img{
+    width: 800px;
+    transform: rotate(40deg);
+}
+
+
+
+/* about us */
+.aboutus{
+    box-shadow: -5px -5px 100px black ;
+    background: black;
+}
+
+.aboutus .container{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.aboutus .container .aboutus-content{
+    color: white;
+    width: 30%;
+}
+.aboutus .container  img{
+    filter: drop-shadow(0 0 10px white);
+}
+.aboutus .container .aboutus-content h1{
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Patua One', serif;
+    color: rgb(156, 46, 6);
+    letter-spacing: 1px;
+    font-size: 4rem;
+}
+
+.aboutus .container .aboutus-content p{
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+
+
+
+
+
