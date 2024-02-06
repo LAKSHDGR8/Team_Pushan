@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to My Blog</title>
+    <!-- Include your CSS file here -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/welcome.css') }}">
+</head>
+<body>
+    <div class="background-image">
+        <div class="content-box" id="content-box">
+            <!-- Content in the central box -->
+            <div id="welcome-text">Welcome to my Blog: {{ msg }}</div>
+            <h2 id="sign-in"><a href="/">Sign In</a></h2>
+        </div>
+    </div>
+    <!-- Include your JavaScript file here -->
+    <script src="{{ url_for('static', filename='js/welcome.js') }}"></script>
+</body>
+</html>
