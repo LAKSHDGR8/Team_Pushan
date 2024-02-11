@@ -97,4 +97,5 @@ new_button=customtkinter.CTkButton(app,command=new,text="New Bill",font=font2,fg
 new_button.place(x=400,y=350)
 
 
-app.mainloop()
+if __name__ == "__main__":
+    app.mainloop()
