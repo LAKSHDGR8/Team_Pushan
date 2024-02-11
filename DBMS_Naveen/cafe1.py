@@ -21,9 +21,9 @@ bill_frame.place(x=800,y=0)
 menu_label=customtkinter.CTkLabel(app,text="My Cafe",font=font1,text_color="#FFFFFF",bg_color="#25283b")
 menu_label.place(x=230,y=5)
 
-img1=PhotoImage(file=r"DBMS/idli_vada.png")
-img2=PhotoImage(file=r"DBMS/masal.png")
-img3=PhotoImage(file=r"DBMS/poori.png")
+img1=PhotoImage(file=r"DBMS_Naveen/idli_vada.png")
+img2=PhotoImage(file=r"DBMS_Naveen/masal.png")
+img3=PhotoImage(file=r"DBMS_Naveen/poori.png")
 
 def pay():
     global total_price
