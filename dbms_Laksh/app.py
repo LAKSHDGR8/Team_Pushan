@@ -16,23 +16,27 @@ def hello():
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
     if request.method == 'POST':
-        try:
-            usr = request.form['usr']
-            email = request.form['email']
-            pwd = request.form['pwd']
-            cpwd = request.form['cpwd']
+        usr = request.form['usr']
+        email = request.form['email']
+        pwd = request.form['pwd']
+        cpwd = request.form['cpwd']
 
+        # Check if passwords match
+        if pwd != cpwd:
+            # If they do not match, return to the signup page with an error message
+            return render_template('signup.html', msg="Password does not match")
+
+        try:
             with sqlite3.connect("canteen.db") as con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO users (Username, Email, Password, Confirmation) VALUES (?, ?, ?, ?)", (usr, email, pwd, cpwd))
+                cur.execute("INSERT INTO users (Username, Email, Password) VALUES (?, ?, ?)", (usr, email, pwd))
                 con.commit()
                 msg = "You have signed up successfully"
         except:
             con.rollback()
-            msg = "error in last operation"
+            msg = "Error in last operation"
         finally:
             con.close()
-
             # Redirect to a new route after successful signup
             return redirect(url_for('welcome', msg=msg))
 
@@ -56,10 +60,10 @@ def signin():
         user = cur.fetchone()
         conn.close()
 
-        if user:
-            return "User successfully signed in"
-        else:
-            return "Wrong username/password"
+        # if user:
+        #     return "User successfully signed in"
+        # else:
+        #     return "Wrong username/password"
 
     return render_template('home.html')
 
