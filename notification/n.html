@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="n.css" />
+    <title>Food Order Notifications</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="notif_box">
+          <h2 class="title">Order Notifications</h2>
+          <span id="notifes"></span>
+        </div>
+        <p id="mark_all">Mark all as read</p>
+      </header>
+      <main>
+        <div class="notif_card unread">
+          <img src="/images/person.png" alt="avatar" />
+          <div class="description">
+            <p class="user_activity">
+              <strong>John Doe</strong> placed a new order
+              <b>Order #1234 - Pizza Combo</b>
+            </p>
+            <p class="time">1m ago</p>
+          </div>
+        </div>
+        <div class="notif_card unread">
+          <img src="images/person.png" alt="avatar" />
+          <div class="description">
+            <p class="user_activity">
+              <strong>Jane Smith</strong> added items to the cart
+            </p>
+            <p class="time">5m ago</p>
+          </div>
+        </div>
+        <div class="notif_card unread">
+          <img src="images/person.png" alt="avatar" />
+          <div class="description">
+            <p class="user_activity">
+              <strong>Pizza Palace</strong> confirmed your order
+              <strong class="link">Order #1234</strong>
+            </p>
+            <p class="time">1 day ago</p>
+          </div>
+        </div>
+        <div>
+          <div class="notif_card">
+            <div class="message_card">
+              <img
+                src="images/person.png"
+                alt="avatar"
+              />
+              <div class="description">
+                <p class="user_activity">
+                  <strong>Delivery Team</strong> updated your delivery status
+                </p>
+                <p class="time">5 days ago</p>
+              </div>
+            </div>
+          </div>
+          <div class="message">
+            <p>
+              Hello, your order is out for delivery. Estimated delivery time is
+              30 minutes.
+            </p>
+          </div>
+        </div>
+
+        <div class="notif_card">
+          <img src="images/person.png" alt="avatar" />
+          <div class="description">
+            <p class="user_activity">
+              <strong>Mary Johnson</strong> left a review on your restaurant
+            </p>
+            <p class="time">1 week ago</p>
+          </div>
+          <!-- <img
+            src=""
+            class="food_img"
+            alt="food"
+          /> -->
+        </div>
+        <div class="notif_card">
+          <img src="images/person.png" alt="avatar" />
+          <div class="description">
+            <p class="user_activity">
+              <strong>David Williams</strong> placed a new order
+              <b>Order #5678 - Sushi Platter</b>
+            </p>
+            <p class="time">2 weeks ago</p>
+          </div>
+        </div>
+        <div class="notif_card">
+          <img src="images/person.png" alt="avatar" />
+          <div class="description">
+            <p class="user_activity">
+              <strong>Tasty Tacos</strong> updated your order status
+              <strong class="link">Order #5678</strong>
+            </p>
+            <p class="time">2 weeks ago</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="n.js"></script>
+  </body>
+</html>
