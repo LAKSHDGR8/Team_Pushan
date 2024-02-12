@@ -3,44 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
     <link rel="stylesheet" href="menu.css">
+    <title>Food Menu</title>
+    
 </head>
 <body>
-    <div class="container">
-        <div class="box1">
-                <div class="imag">
-                    <img src="idli.jpg" alt="">
+    <header>
+        <h1>Food Menu</h1>
+    </header>
+
+    <section>
+        <div id="menu">
+            <div class="menu-item">
+                <img src="idli.jpg" alt="Item 1">
+                <div class="item-details">
+                    <h3>Item 1</h3>
+                    <p>$10.00</p>
+                    <button class="order-btn" onclick="orderItem('Item 1', 10.00)">Order Now</button>
                 </div>
-            <div class="heading">idli vada</div>
-            <p></p>
-            <div class="price">50</div>
-            <div class="button">
-                <button>order now</button>
+            </div>
+
+            <div class="menu-item">
+                <img src="puri.jpg" alt="Item 2">
+                <div class="item-details">
+                    <h3>Item 2</h3>
+                    <p>$12.00</p>
+                    <button class="order-btn" onclick="orderItem('Item 2', 12.00)">Order Now</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img  src="Masala-Dosa.jpg" alt="Item 3">
+                <div class="item-details">
+                    <h3>Item 3</h3>
+                    <p>$8.00</p>
+                    <button class="order-btn" onclick="orderItem('Item 3', 8.00)">Order Now</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="riceandsambar.jpg" alt="Item 4">
+                <div class="item-details">
+                    <h3>Item 4</h3>
+                    <p>$15.00</p>
+                    <button class="order-btn" onclick="orderItem('Item 4', 15.00)">Order Now</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="bisibelebath.jpg" alt="Item 5">
+                <div class="item-details">
+                    <h3>Item 5</h3>
+                    <p>$18.00</p>
+                    <button class="order-btn" onclick="orderItem('Item 5', 18.00)">Order Now</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="sandwich.jpg" alt="Item 6">
+                <div class="item-details">
+                    <h3>Item 6</h3>
+                    <p>$14.00</p>
+                    <button class="order-btn" onclick="orderItem('Item 6', 14.00)">Order Now</button>
+                </div>
             </div>
         </div>
-        <div class="box2">
-                <div class="imag">
-                    <img src="Masala-Dosa.jpg" alt="">
-                </div>
-            <div class="heading">Masala-Dosa</div>
-            <p></p>
-            <div class="price">70</div>
-            <div class="button">
-                <button>order now</button>
-            </div>
-        </div>
-        <div class="box3">
-                <div class="imag">
-                    <img src="puri.jpg" alt="">
-                </div>
-            <div class="heading">Double3 burger</div>
-            <p></p>
-            <div class="price">60</div>
-            <div class="button">
-                <button>order now</button>
-            </div>
-        </div>
-    </div>
+    </section>
+
+    <script>
+        function orderItem(itemName, itemCost) {
+            alert("Order placed! " + itemName + " added to your cart. Total cost: $" + itemCost.toFixed(2));
+            // Add logic to handle the order, such as updating the cart or sending the order to the server.
+        }
+    </script>
 </body>
 </html>

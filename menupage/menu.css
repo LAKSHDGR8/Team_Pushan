@@ -1,90 +1,63 @@
-* {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    background-color: #f4f4f4;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 600px;
-    /* border: 2px solid red; */
-}
-
-.box1,
-.box2,
-.box3 {
-    float: left;
-    border: 1px solid blue;
-    width: 300px;
-    height: 450px;
-    padding: 20px;
-    margin: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the content horizontally */
-}
-
-.box1:hover,
-.box2:hover,
-.box3:hover {
-    transform: scale(1.1);
-    border: 1px solid grey;
-    box-shadow: 0px 0px 2px 2px gray;
-}
-
-.imag {
-    width: 100%; /* Set a fixed width for the image container */
-    height: 200px; /* Set a fixed height for the image container */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.imag img {
-    max-width: 100%; /* Ensure the image doesn't exceed the container's width */
-    max-height: 100%; /* Ensure the image doesn't exceed the container's height */
-}
-
-.heading {
-    font-size: 20px;
-    color: brown;
-    font-weight: 800;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-.price {
-    color: brown;
-    font-size: 15px;
-    margin-top: 10px;
-    font-weight: 800;
-}
-
-.button {
-    margin-top: 20px;
-    text-align: center;
-    display: none;
-}
-
-.button button {
-    width: 200px;
-    height: 50px;
+header {
+    background-color: #ca7070;
+    color: #fff;
     padding: 10px;
-    border-radius: 20px;
-    background-color: rgb(3, 63, 3);
-    color: white;
-    font-weight: 15px;
+    text-align: center;
 }
 
-.box1:hover .button,
-.box2:hover .button,
-.box3:hover .button {
-    display: inline-block;
+section {
+    padding: 20px;
+}
+
+#menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.menu-item {
+    width: 30%;
+    margin: 10px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out; /* Add a transition for the transform property */
+}
+
+.menu-item:hover {
+    transform: scale(1.05); /* Scale up the menu item when hovering */
+}
+
+.menu-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.item-details {
+    margin-top: 10px;
+}
+
+.order-btn {
+    background-color: #cd6060;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.menu-item img {
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+    object-fit: cover;
 }
