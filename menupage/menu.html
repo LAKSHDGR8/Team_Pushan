@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="menu.css">
+    <title>Food Menu</title>
+    <style>
+        /* Add your additional CSS styles here */
+        #bill-box {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #7b4242;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        #generate-bill-btn {
+    background-color: #cd6060;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: none;
+    transition: background-color 0.3s ease-in-out; /* Add a transition effect for smoother hover */
+
+}
+
+#generate-bill-btn:hover {
+    background-color: #a04040; /* Change color on hover */
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Food Menu</h1>
+    </header>
+
+    <section>
+        <div id="menu">
+            <div class="menu-item" id="item1">
+                <img src="idli.jpg" alt="Item 1">
+                <div class="item-details">
+                    <h3>Item 1</h3>
+                    <p>$30.00</p>
+                    <div class="quantity">
+                        <button class="order-btn" onclick="orderItem('Item 1', 30.00)">Add to cart</button>
+                        <button class="quantity-btn" onclick="changeQuantity('item1', 1)">+</button>
+                        <span id="quantity-item1">0</span>
+                        <button class="quantity-btn" onclick="changeQuantity('item1', -1)">-</button>
+                    </div>
+                </div>
+            </div>
+                    <div class="menu-item" id="item2">
+    <img src="Masala-Dosa.jpg" alt="Item 2">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$50.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 2', 50.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item2', 1)">+</button>
+            <span id="quantity-item2">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item2', -1)">-</button>
+        </div>
+    </div>
+</div>
+<div class="menu-item" id="item3">
+    <img src="bisibelebath.jpg" alt="Item 3">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$30.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 3', 30.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item3', 1)">+</button>
+            <span id="quantity-item3">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item3', -1)">-</button>
+        </div>
+    </div>
+</div>
+<div class="menu-item" id="item4">
+    <img src="riceandsambar.jpg" alt="Item 4">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$40.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 4', 40.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item4', 1)">+</button>
+            <span id="quantity-item4">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item4', -1)">-</button>
+        </div>
+    </div>
+</div>
+<div class="menu-item" id="item5">
+    <img src="puri.jpg" alt="Item 5">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$40.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 5', 40.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item5', 1)">+</button>
+            <span id="quantity-item5">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item5', -1)">-</button>
+        </div>
+    </div>
+</div>
+<div class="menu-item" id="item6">
+    <img src="sandwich.jpg" alt="Item 6">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$60.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 6', 60.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item6', 1)">+</button>
+            <span id="quantity-item6">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item6', -1)">-</button>
+        </div>
+    </div>
+</div>
+
+
+
+            
+
+        </div>
+
+        <div id="bill-box">
+            <h2>Bill</h2>
+            <p>Total Quantity: <span id="total-quantity">0</span></p>
+            <p>Total Price: $<span id="total-price">0.00</span></p>
+        </div>
+
+        <button id="generate-bill-btn" onclick="generateBill()" style="display:none;">Generate Bill</button>
+    </section>
+
+    <script>
+        // Function to handle ordering an item
+        function orderItem(itemName, itemCost) {
+            var quantityElement = document.getElementById("quantity-" + itemName);
+            var currentQuantity = parseInt(quantityElement.innerText);
+            var newQuantity = currentQuantity + 1;
+    
+            quantityElement.innerText = newQuantity;
+    
+            // Show the "Generate Bill" button when an item is added to the cart
+            document.getElementById("generate-bill-btn").style.display = "block";
+        }
+    
+        // Function to handle changing the quantity of an item
+        function changeQuantity(itemId, change) {
+            var quantityElement = document.getElementById("quantity-" + itemId);
+            var currentQuantity = parseInt(quantityElement.innerText);
+            var newQuantity = currentQuantity + change;
+    
+            if (newQuantity < 0) {
+                newQuantity = 0; // Quantity cannot be negative
+            }
+    
+            quantityElement.innerText = newQuantity;
+    
+            // Show the "Generate Bill" button when an item quantity is updated
+            document.getElementById("generate-bill-btn").style.display = "block";
+        }
+    
+        // Function to generate the bill
+        function generateBill() {
+            var totalQuantity = 0;
+            var totalPrice = 0;
+    
+            // Calculate total quantity and price for all items
+            for (var i = 1; i <= 6; i++) {
+                var quantity = parseInt(document.getElementById("quantity-item" + i).innerText);
+                var price = parseFloat(document.getElementById("menu").querySelector("#item" + i + " p").innerText.replace('$', ''));
+    
+                totalQuantity += quantity;
+                totalPrice += quantity * price;
+            }
+    
+            // Display the total quantity and price in the bill box
+            document.getElementById("total-quantity").innerText = totalQuantity;
+            document.getElementById("total-price").innerText = totalPrice.toFixed(2);
+    
+            // Show the bill box
+            document.getElementById("bill-box").style.display = "block";
+        }
+    </script>
+    
+</body>
+
+</html>
+
+
+<!-- <div class="menu-item">
+
+    <img src="idli.jpg" alt="Item 1">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$10.00</p>
+        <button class="order-btn" onclick="orderItem('Item 1', 10.00)">Order Now</button>
+    </div>
+</div>
+
+<div class="menu-item">
+    <img src="puri.jpg" alt="Item 2">
+    <div class="item-details">
+        <h3>Item 2</h3>
+        <p>$12.00</p>
+        <button class="order-btn" onclick="orderItem('Item 2', 12.00)">Order Now</button>
+    </div>
+</div>
+
+<div class="menu-item">
+    <img  src="Masala-Dosa.jpg" alt="Item 3">
+    <div class="item-details">
+        <h3>Item 3</h3>
+        <p>$8.00</p>
+        <button class="order-btn" onclick="orderItem('Item 3', 8.00)">Order Now</button>
+    </div>
+</div>
+
+<div class="menu-item">
+    <img src="riceandsambar.jpg" alt="Item 4">
+    <div class="item-details">
+        <h3>Item 4</h3>
+        <p>$15.00</p>
+        <button class="order-btn" onclick="orderItem('Item 4', 15.00)">Order Now</button>
+    </div>
+</div>
+
+<div class="menu-item">
+    <img src="bisibelebath.jpg" alt="Item 5">
+    <div class="item-details">
+        <h3>Item 5</h3>
+        <p>$18.00</p>
+        <button class="order-btn" onclick="orderItem('Item 5', 18.00)">Order Now</button>
+    </div>
+</div>
+
+<div class="menu-item">
+    <img src="sandwich.jpg" alt="Item 6">
+    <div class="item-details">
+        <h3>Item 6</h3>
+        <p>$14.00</p>
+        <button class="order-btn" onclick="orderItem('Item 6', 14.00)">Order Now</button>
+    </div>
+</div> -->
+
+
+
+<!-- <div class="menu-item" id="item2">
+    <img src="Masala-Dosa.jpg" alt="Item 2">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$10.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 2', 10.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item2', 1)">+</button>
+            <span id="quantity-item2">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item2', -1)">-</button>
+        </div>
+    </div>
+</div>
+<div class="menu-item" id="item3">
+    <img src="bisibelebath.jpg" alt="Item 3">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$10.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 3', 10.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item3', 1)">+</button>
+            <span id="quantity-item3">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item3', -1)">-</button>
+        </div>
+    </div>
+</div>
+<div class="menu-item" id="item4">
+    <img src="riceandsambar.jpg" alt="Item 4">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$10.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 4', 10.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item4', 1)">+</button>
+            <span id="quantity-item4">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item4', -1)">-</button>
+        </div>
+    </div>
+</div>
+<div class="menu-item" id="item5">
+    <img src="puri.jpg" alt="Item 5">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$10.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 5', 10.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item5', 1)">+</button>
+            <span id="quantity-item5">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item5', -1)">-</button>
+        </div>
+    </div>
+</div>
+<div class="menu-item" id="item6">
+    <img src="sandwich.jpg" alt="Item 6">
+    <div class="item-details">
+        <h3>Item 1</h3>
+        <p>$10.00</p>
+        <div class="quantity">
+            <button class="order-btn" onclick="orderItem('Item 6', 10.00)">Add to cart</button>
+            <button class="quantity-btn" onclick="changeQuantity('item6', 1)">+</button>
+            <span id="quantity-item6">0</span>
+            <button class="quantity-btn" onclick="changeQuantity('item6', -1)">-</button>
+        </div>
+    </div>
+</div> -->
+
+

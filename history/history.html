@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #d77b7b;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        #order-history {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #order-history h2 {
+            color: #333;
+        }
+
+        .order {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+        }
+
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .order-details span {
+            font-weight: bold;
+        }
+
+        .order-items {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .order-items li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Order History</h1>
+    </header>
+
+    <section>
+        <div id="order-history">
+            <h2>Your Order History</h2>
+
+            <div class="order">
+                <div class="order-details">
+                    <span>Order Number:</span>
+                    <span>#123456</span>
+                </div>
+
+                <div class="order-details">
+                    <span>Date:</span>
+                    <span>2024-02-12</span>
+                </div>
+
+                <div class="order-details">
+                    <span>Total Cost:</span>
+                    <span>$30.00</span>
+                </div>
+
+                <h3>Ordered Items:</h3>
+                <ul class="order-items">
+                    <li>Item 1 - $10.00</li>
+                    <li>Item 2 - $15.00</li>
+                    <li>Item 3 - $5.00</li>
+                </ul>
+            </div>
+
+            <!-- Add more order entries as needed -->
+        </div>
+    </section>
+</body>
+</html>
