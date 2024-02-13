@@ -61,3 +61,17 @@ section {
     border-radius: 5px;
     object-fit: cover;
 }
+.quantity {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-btn {
+    background-color: #cd6060;
+    color: #fff;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 5px;
+}
