@@ -72,7 +72,7 @@ def signin():
 @app.route('/menu')
 def menu():
     # This will run the Tkinter app as a subprocess
-    subprocess.Popen([sys.executable, 'cafe1.py'])
+    subprocess.Popen([sys.executable, 'dbms_Laksh/cafe1.py'])
     # Redirect to home page or a page of your choice
     return redirect(url_for('home'))
 
