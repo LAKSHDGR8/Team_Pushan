@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Wallet </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff; /* Set background color to white */
+            color: #333; /* Set text color to dark gray */
+        }
+
+        header {
+            background-color: #dd6d6d; /* Set background color to red */
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        #balance {
+            font-size: 20px;
+            font-weight: bold;
+            color: #dc6f6f; /* Set text color to red */
+        }
+
+        #transaction-history {
+            margin-top: 20px;
+        }
+
+        #transaction-history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #transaction-history li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #add-funds-form {
+            margin-top: 20px;
+        }
+
+        #add-funds-form input {
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        #add-funds-btn {
+            padding: 10px;
+            background-color: #d86565; /* Set background color to red */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1> Wallet </h1>
+    </header>
+
+    <section>
+        <div id="balance">Current Balance: $50.00</div>
+
+        <div id="transaction-history">
+            <h2>Transaction History</h2>
+            <ul>
+                <li>Order #123 - $15.00</li>
+                <li>Order #124 - $20.00</li>
+                <li>Order #125 - $10.00</li>
+            </ul>
+        </div>
+
+        <div id="add-funds-form">
+            <h2>Add Funds</h2>
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" placeholder="Enter amount">
+
+            <button id="add-funds-btn" onclick="addFunds()">Add Funds</button>
+        </div>
+    </section>
+
+    <script>
+        function addFunds() {
+            var amount = document.getElementById("amount").value;
+            if (amount !== "" && !isNaN(amount) && parseFloat(amount) > 0) {
+                // Add logic to update the balance and record the transaction
+                alert("Funds added successfully!");
+            } else {
+                alert("Please enter a valid amount.");
+            }
+        }
+    </script>
+</body>
+</html>
