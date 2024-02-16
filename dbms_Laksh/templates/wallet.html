@@ -30,22 +30,6 @@
             color: #dc6f6f; /* Set text color to red */
         }
 
-        #transaction-history {
-            margin-top: 20px;
-        }
-
-        #transaction-history ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #transaction-history li {
-            border-bottom: 1px solid #ddd;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-
         #add-funds-form {
             margin-top: 20px;
         }
@@ -72,15 +56,6 @@
     <section>
         <div id="balance">Current Balance: $50.00</div>
 
-        <div id="transaction-history">
-            <h2>Transaction History</h2>
-            <ul>
-                <li>Order #123 - $15.00</li>
-                <li>Order #124 - $20.00</li>
-                <li>Order #125 - $10.00</li>
-            </ul>
-        </div>
-
         <div id="add-funds-form">
             <h2>Add Funds</h2>
             <label for="amount">Amount:</label>
@@ -91,15 +66,56 @@
     </section>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchCurrentBalance();
+        });
+        
+        function fetchCurrentBalance() {
+            fetch('/get_balance', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add CSRF token header if needed
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("balance").innerHTML = `Current Balance: $${data.balance.toFixed(2)}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        
         function addFunds() {
             var amount = document.getElementById("amount").value;
             if (amount !== "" && !isNaN(amount) && parseFloat(amount) > 0) {
-                // Add logic to update the balance and record the transaction
-                alert("Funds added successfully!");
+                fetch('/add_funds', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        // Add CSRF token header if needed
+                    },
+                    body: `amount=${amount}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Funds added successfully') {
+                        alert(data.message);
+                        fetchCurrentBalance(); // Update the balance displayed on the page
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while adding funds.');
+                });
             } else {
                 alert("Please enter a valid amount.");
             }
         }
-    </script>
+        </script>
+        
 </body>
 </html>

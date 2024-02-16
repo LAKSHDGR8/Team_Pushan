@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request,session
+from flask import Flask, render_template, redirect, url_for,request,session,jsonify
 from flask_socketio import SocketIO
 import threading
 import time
@@ -33,6 +33,15 @@ def create_orders_table():
     conn.close()
 
 create_orders_table()
+
+def create_wallet_table():
+    conn = get_db_connection()
+    conn.execute('CREATE TABLE IF NOT EXISTS wallet (username TEXT PRIMARY KEY,balance REAL DEFAULT 0)')
+    print("Table wallet created successfully")
+    conn.close()
+
+create_wallet_table()
+
 
 def check_for_updates():
     last_known_row_count = 0
@@ -107,6 +116,10 @@ def signin():
 def menu():
     return render_template('menu.html')
 
+@app.route('/wallet', methods=['POST', 'GET'])
+def wallet():
+    return render_template('wallet.html')
+
 @app.route('/generate_bill', methods=['POST'])
 def generate_bill():
     if request.method == 'POST':
@@ -127,6 +140,55 @@ def generate_bill():
         finally:
             conn.close()
             return {"message": msg}
+
+@app.route('/get_balance', methods=['GET'])
+def get_balance():
+    if 'username' not in session:
+        return jsonify({'message': 'User not logged in'}), 403
+
+    username = session['username']
+    conn = get_db_connection()
+    cur = conn.execute('SELECT balance FROM wallet WHERE username = ?', (username,))
+    wallet_row = cur.fetchone()
+    conn.close()
+
+    if wallet_row:
+        return jsonify({'balance': wallet_row['balance']})
+    else:
+        # Assuming zero balance if the wallet entry doesn't exist
+        return jsonify({'balance': 0.0})
+
+@app.route('/add_funds', methods=['POST'])
+def add_funds():
+    if 'username' not in session:
+        return jsonify({'message': 'User not logged in'}), 403
+
+    amount = request.form.get('amount', type=float)
+    if amount is None or amount <= 0:
+        return jsonify({'message': 'Invalid amount'}), 400
+
+    username = session['username']
+    conn = get_db_connection()
+    try:
+        # Check if the user already has a wallet entry
+        cur = conn.execute('SELECT balance FROM wallet WHERE username = ?', (username,))
+        wallet_row = cur.fetchone()
+
+        if wallet_row:
+            # Update balance if wallet exists
+            conn.execute('UPDATE wallet SET balance = balance + ? WHERE username = ?', (amount, username))
+        else:
+            # Create a new wallet entry if it doesn't exist
+            conn.execute('INSERT INTO wallet (username, balance) VALUES (?, ?)', (username, amount))
+        
+        conn.commit()
+        return jsonify({'message': 'Funds added successfully'})
+    except Exception as e:
+        conn.rollback()
+        return jsonify({'message': str(e)}), 500
+    finally:
+        conn.close()
+
 
 @app.route('/logout')
 def logout():
