@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Notifications</title>
+    <style>
+        /* Add styles for the clear button if needed */
+        #clear-notifications-btn {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Notifications</h1>
@@ -14,6 +25,9 @@
         </div>
         {% endfor %}
     </div>
+
+    <button id="clear-notifications-btn">Clear All Notifications</button>
+
     <script>
         function fetchNotifications() {
             fetch('/notifications')
@@ -30,10 +44,14 @@
             })
             .catch(error => console.error('Error:', error));
         }
-    
+
+        document.getElementById('clear-notifications-btn').addEventListener('click', function() {
+            document.getElementById('notifications').innerHTML = ''; // Simply clear the notifications display
+        });
+
         // Poll for new notifications every 30 seconds
         setInterval(fetchNotifications, 30000);
-    
+
         // Fetch once on page load
         fetchNotifications();
     </script>

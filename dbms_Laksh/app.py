@@ -147,14 +147,26 @@ def notifications():
 @app.route('/order_history')
 def order_history():
     if 'username' not in session:
-        return redirect(url_for('signin'))  # Redirect to sign-in page if user is not logged in
+        return redirect(url_for('signin'))  # Ensure user is logged in
 
     username = session['username']
     conn = get_db_connection()
-    orders = conn.execute('SELECT bill_no, bill_amount, username FROM orders WHERE username = ? ORDER BY bill_no DESC', (username,)).fetchall()
+    
+    # This is a conceptual query; you'll need to adjust it to correctly match orders with their notifications
+    order_history = conn.execute('''
+        SELECT o.bill_no, o.bill_amount, MAX(n.timestamp) as timestamp
+        FROM orders o
+        JOIN notifications n ON o.username = n.username AND n.message LIKE '%' || o.bill_amount || '%'
+        WHERE o.username = ?
+        GROUP BY o.bill_no
+        ORDER BY o.bill_no DESC;
+
+    ''', (username,)).fetchall()
+    
     conn.close()
 
-    return render_template('order_history.html', orders=orders)
+    # Assuming you have a method to accurately match orders with notifications
+    return render_template('order_history.html', order_history=order_history)
 
 
 @app.route('/generate_bill', methods=['POST'])
@@ -205,6 +217,7 @@ def get_balance():
     else:
         # Assuming zero balance if the wallet entry doesn't exist
         return jsonify({'balance': 0.0})
+
 
 @app.route('/add_funds', methods=['POST'])
 def add_funds():

@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order History</title>
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> Adjust the path as needed -->
+    <!-- Styles -->
 </head>
 <body>
     <header>
         <h1>Order History</h1>
     </header>
     <section>
-        {% if orders %}
+        {% if order_history %}
             <ul>
-                {% for order in orders %}
-                    <li>Order #{{ order.bill_no }} - ${{ order.bill_amount }}</li>
+                {% for order in order_history %}
+                    <li>An order of ${{ order.bill_amount }} was placed on {{ order.timestamp }}</li>
                 {% endfor %}
             </ul>
         {% else %}
