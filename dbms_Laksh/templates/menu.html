@@ -189,17 +189,21 @@ function generateBill() {
 
     // Send the bill details to the server
     fetch('/generate_bill', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `billAmount=${totalPrice.toFixed(2)}`
-    })
-    .then(response => response.json())
-    .then(data => alert(data.message))
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `billAmount=${totalPrice.toFixed(2)}`
+})
+.then(response => response.json())
+.then(data => {
+    alert(data.message); // Will show whether funds were sufficient and if the bill was generated
+    if (data.message === 'Bill generated and amount deducted from wallet') {
+        // Optionally, update UI to reflect the changes
+        fetchCurrentBalance(); // Assuming you have a function to update the displayed balance
+    }
+})
+.catch(error => console.error('Error:', error));
 }
 
     </script>

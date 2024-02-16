@@ -20,7 +20,7 @@ def get_db_connection():
 
 def create_users_table():
     conn = get_db_connection()
-    conn.execute('CREATE TABLE IF NOT EXISTS users (Username varchar(20), Email varchar(20), Password varchar(20), Confirmation varchar(20))')
+    conn.execute('CREATE TABLE IF NOT EXISTS users (Username varchar(20) PRIMARY KEY, Email varchar(20), Password varchar(20), Confirmation varchar(20))')
     print("Table users created successfully")
     conn.close()
 
@@ -28,7 +28,7 @@ create_users_table()
 
 def create_orders_table():
     conn = get_db_connection()
-    conn.execute('CREATE TABLE IF NOT EXISTS orders (bill_no INTEGER PRIMARY KEY AUTOINCREMENT,bill_amount REAL,username TEXT)')
+    conn.execute('CREATE TABLE IF NOT EXISTS orders (bill_no INTEGER PRIMARY KEY AUTOINCREMENT,bill_amount REAL NOT NULL,username TEXT NOT NULL,FOREIGN KEY (username) REFERENCES users(Username))')
     print("Table orders created successfully")
     conn.close()
 
@@ -36,7 +36,7 @@ create_orders_table()
 
 def create_wallet_table():
     conn = get_db_connection()
-    conn.execute('CREATE TABLE IF NOT EXISTS wallet (username TEXT PRIMARY KEY,balance REAL DEFAULT 0)')
+    conn.execute('CREATE TABLE IF NOT EXISTS wallet (username TEXT PRIMARY KEY,balance REAL DEFAULT 0,FOREIGN KEY (username) REFERENCES users(Username))')
     print("Table wallet created successfully")
     conn.close()
 
@@ -122,24 +122,32 @@ def wallet():
 
 @app.route('/generate_bill', methods=['POST'])
 def generate_bill():
-    if request.method == 'POST':
-        bill_amount = request.form['billAmount']
-        username = session.get('username')  # Get the username from the session
+    if 'username' not in session:
+        return jsonify({'message': 'User not logged in'}), 403
 
-        if not username:
-            return {"message": "User is not logged in"}, 403
+    username = session['username']
+    bill_amount = request.form.get('billAmount', type=float)
 
-        try:
-            conn = get_db_connection()
-            conn.execute("INSERT INTO orders (bill_amount, username) VALUES (?, ?)", (bill_amount, username))
-            conn.commit()
-            msg = "Bill generated successfully"
-        except Exception as e:
-            conn.rollback()
-            msg = f"Error in generating bill: {str(e)}"
-        finally:
-            conn.close()
-            return {"message": msg}
+    conn = get_db_connection()
+    cur = conn.execute('SELECT balance FROM wallet WHERE username = ?', (username,))
+    wallet_row = cur.fetchone()
+
+    if wallet_row is None or wallet_row['balance'] < bill_amount:
+        return jsonify({'message': 'Insufficient funds in the wallet'}), 400
+
+    try:
+        # Deduct the bill amount from the wallet
+        conn.execute('UPDATE wallet SET balance = balance - ? WHERE username = ?', (bill_amount, username))
+        # Insert the bill into orders
+        conn.execute('INSERT INTO orders (bill_amount, username) VALUES (?, ?)', (bill_amount, username))
+        conn.commit()
+        return jsonify({'message': 'Bill generated and amount deducted from wallet'})
+    except Exception as e:
+        conn.rollback()
+        return jsonify({'message': 'Error in generating bill: ' + str(e)}), 500
+    finally:
+        conn.close()
+
 
 @app.route('/get_balance', methods=['GET'])
 def get_balance():
