@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request,session
 from flask_socketio import SocketIO
 import threading
 import time
@@ -26,13 +26,13 @@ def create_users_table():
 
 create_users_table()
 
-def create_users_table():
+def create_orders_table():
     conn = get_db_connection()
-    conn.execute('CREATE TABLE IF NOT EXISTS orders (name varchar(20), bill int )')
+    conn.execute('CREATE TABLE IF NOT EXISTS orders (bill_no INTEGER PRIMARY KEY AUTOINCREMENT,bill_amount REAL,username TEXT)')
     print("Table orders created successfully")
     conn.close()
 
-create_users_table()
+create_orders_table()
 
 def check_for_updates():
     last_known_row_count = 0
@@ -61,7 +61,7 @@ def signup():
         # Check if passwords match
         if pwd != cpwd:
             # If they do not match, return to the signup page with an error message
-            return render_template('signup.html', msg="Password does not match")
+            return render_template('welcome.html', msg="Password does not match")
 
         try:
             conn = get_db_connection()
@@ -94,10 +94,12 @@ def signin():
         user = cur.fetchone()
         conn.close()
 
-        # if user:
+        if user:
+            session['username'] = user['Username']
+            return render_template('home.html')
         #     return redirect(url_for('welcome', msg="User successfully signed in"))
-        # else:
-        #     return render_template('signup.html', msg="Wrong username/password")
+        else:
+            return render_template('welcome.html', msg="Wrong username/password")
 
     return render_template('home.html')
 
