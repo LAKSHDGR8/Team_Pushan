@@ -101,7 +101,7 @@ def signin():
 
     return render_template('home.html')
 
-@app.route('/menu')
+@app.route('/menu', methods=['POST', 'GET'])
 def menu():
     return render_template('menu.html')
 
