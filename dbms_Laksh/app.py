@@ -42,6 +42,19 @@ def create_wallet_table():
 
 create_wallet_table()
 
+def create_notifications_table():
+    conn = get_db_connection()
+    conn.execute('''CREATE TABLE IF NOT EXISTS notifications (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username TEXT NOT NULL,
+                    message TEXT NOT NULL,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (username) REFERENCES users(Username))''')
+    print("Table notifications created successfully")
+    conn.close()
+
+create_notifications_table()
+
 
 def check_for_updates():
     last_known_row_count = 0
@@ -120,6 +133,18 @@ def menu():
 def wallet():
     return render_template('wallet.html')
 
+@app.route('/notifications')
+def notifications():
+    if 'username' not in session:
+        return redirect(url_for('signin'))
+
+    username = session['username']
+    conn = get_db_connection()
+    notifications = conn.execute('SELECT message, timestamp FROM notifications WHERE username = ? ORDER BY timestamp DESC', (username,)).fetchall()
+    conn.close()
+    return render_template('notifications.html', notifications=notifications)
+
+
 @app.route('/generate_bill', methods=['POST'])
 def generate_bill():
     if 'username' not in session:
@@ -140,6 +165,9 @@ def generate_bill():
         conn.execute('UPDATE wallet SET balance = balance - ? WHERE username = ?', (bill_amount, username))
         # Insert the bill into orders
         conn.execute('INSERT INTO orders (bill_amount, username) VALUES (?, ?)', (bill_amount, username))
+        # Add a notification for the user
+        notification_message = f"Your order for ${bill_amount} has been placed"
+        conn.execute('INSERT INTO notifications (username, message) VALUES (?, ?)', (username, notification_message))
         conn.commit()
         return jsonify({'message': 'Bill generated and amount deducted from wallet'})
     except Exception as e:

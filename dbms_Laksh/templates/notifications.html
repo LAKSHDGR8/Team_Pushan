@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications</title>
+</head>
+<body>
+    <h1>Notifications</h1>
+    <div id="notifications">
+        {% for notification in notifications %}
+        <div class="notification">
+            <p>{{ notification.message }}</p>
+            <small>{{ notification.timestamp }}</small>
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+        function fetchNotifications() {
+            fetch('/notifications')
+            .then(response => response.json())
+            .then(data => {
+                const notificationsContainer = document.getElementById('notifications');
+                notificationsContainer.innerHTML = ''; // Clear existing notifications
+                data.notifications.forEach(notification => {
+                    const notificationElement = document.createElement('div');
+                    notificationElement.classList.add('notification');
+                    notificationElement.innerHTML = `<p>${notification.message}</p><small>${notification.timestamp}</small>`;
+                    notificationsContainer.appendChild(notificationElement);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    
+        // Poll for new notifications every 30 seconds
+        setInterval(fetchNotifications, 30000);
+    
+        // Fetch once on page load
+        fetchNotifications();
+    </script>
+    
+</body>
+</html>
