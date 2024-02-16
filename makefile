@@ -1,6 +1,6 @@
 .PHONY: first run, run, git
 
-first run:
+first:
 	@echo "Installing requirements..."
 	pip install -r requirements.txt
 	@echo "Starting application..."

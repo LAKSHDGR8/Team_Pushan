@@ -61,7 +61,7 @@ def signup():
         # Check if passwords match
         if pwd != cpwd:
             # If they do not match, return to the signup page with an error message
-            return render_template('welcome.html', msg="Password does not match")
+            return render_template('signup.html', msg="Password does not match")
 
         try:
             conn = get_db_connection()
@@ -75,7 +75,7 @@ def signup():
             conn.close()
             return redirect(url_for('welcome', msg=msg))
 
-    return render_template('welcome.html')
+    return render_template('signup.html')
 
 @app.route('/welcome')
 def welcome():
@@ -100,6 +100,10 @@ def signin():
         #     return render_template('signup.html', msg="Wrong username/password")
 
     return render_template('home.html')
+
+@app.route('/menu')
+def menu():
+    return render_template('menu.html')
 
 if __name__ == '__main__':
     threading.Thread(target=check_for_updates, daemon=True).start()
