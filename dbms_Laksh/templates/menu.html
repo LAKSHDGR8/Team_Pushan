@@ -166,26 +166,42 @@
         }
     
         // Function to generate the bill
-        function generateBill() {
-            var totalQuantity = 0;
-            var totalPrice = 0;
-    
-            // Calculate total quantity and price for all items
-            for (var i = 1; i <= 6; i++) {
-                var quantity = parseInt(document.getElementById("quantity-item" + i).innerText);
-                var price = parseFloat(document.getElementById("menu").querySelector("#item" + i + " p").innerText.replace('$', ''));
-    
-                totalQuantity += quantity;
-                totalPrice += quantity * price;
-            }
-    
-            // Display the total quantity and price in the bill box
-            document.getElementById("total-quantity").innerText = totalQuantity;
-            document.getElementById("total-price").innerText = totalPrice.toFixed(2);
-    
-            // Show the bill box
-            document.getElementById("bill-box").style.display = "block";
-        }
+        // Function to generate the bill and send it to the server
+function generateBill() {
+    var totalQuantity = 0;
+    var totalPrice = 0;
+
+    // Calculate total quantity and price for all items
+    for (var i = 1; i <= 6; i++) {
+        var quantity = parseInt(document.getElementById("quantity-item" + i).innerText);
+        var price = parseFloat(document.getElementById("menu").querySelector("#item" + i + " p").innerText.replace('$', ''));
+
+        totalQuantity += quantity;
+        totalPrice += quantity * price;
+    }
+
+    // Display the total quantity and price in the bill box
+    document.getElementById("total-quantity").innerText = totalQuantity;
+    document.getElementById("total-price").innerText = totalPrice.toFixed(2);
+
+    // Show the bill box
+    document.getElementById("bill-box").style.display = "block";
+
+    // Send the bill details to the server
+    fetch('/generate_bill', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `billAmount=${totalPrice.toFixed(2)}`
+    })
+    .then(response => response.json())
+    .then(data => alert(data.message))
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
     </script>
     
 </body>

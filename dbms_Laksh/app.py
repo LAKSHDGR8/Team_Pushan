@@ -107,6 +107,33 @@ def signin():
 def menu():
     return render_template('menu.html')
 
+@app.route('/generate_bill', methods=['POST'])
+def generate_bill():
+    if request.method == 'POST':
+        bill_amount = request.form['billAmount']
+        username = session.get('username')  # Get the username from the session
+
+        if not username:
+            return {"message": "User is not logged in"}, 403
+
+        try:
+            conn = get_db_connection()
+            conn.execute("INSERT INTO orders (bill_amount, username) VALUES (?, ?)", (bill_amount, username))
+            conn.commit()
+            msg = "Bill generated successfully"
+        except Exception as e:
+            conn.rollback()
+            msg = f"Error in generating bill: {str(e)}"
+        finally:
+            conn.close()
+            return {"message": msg}
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)  # Remove the username from the session
+    return render_template('dbms.html')
+
+
 if __name__ == '__main__':
     threading.Thread(target=check_for_updates, daemon=True).start()
     socketio.run(app, debug=True)

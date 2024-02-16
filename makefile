@@ -14,6 +14,6 @@ git:
 	@echo "Auto add..."
 	git add .
 	@echo "Auto commit..."
-	git commit -m "Auto-commit"
+	git commit -m "Sessions enabled"
 	@echo "Auto push"
 	git push origin main
