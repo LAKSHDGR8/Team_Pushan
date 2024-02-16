@@ -144,6 +144,18 @@ def notifications():
     conn.close()
     return render_template('notifications.html', notifications=notifications)
 
+@app.route('/order_history')
+def order_history():
+    if 'username' not in session:
+        return redirect(url_for('signin'))  # Redirect to sign-in page if user is not logged in
+
+    username = session['username']
+    conn = get_db_connection()
+    orders = conn.execute('SELECT bill_no, bill_amount, username FROM orders WHERE username = ? ORDER BY bill_no DESC', (username,)).fetchall()
+    conn.close()
+
+    return render_template('order_history.html', orders=orders)
+
 
 @app.route('/generate_bill', methods=['POST'])
 def generate_bill():
