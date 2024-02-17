@@ -1,117 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./images/favicon-32x32.png"
-    />
-    <link rel="stylesheet" href="n.css" />
-    <title>Food Order Notifications</title>
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <div class="notif_box">
-          <h2 class="title">Order Notifications</h2>
-          <span id="notifes"></span>
-        </div>
-        <p id="mark_all">Mark all as read</p>
-      </header>
-      <main>
-        <div class="notif_card unread">
-          <img src="/images/person.png" alt="avatar" />
-          <div class="description">
-            <p class="user_activity">
-              <strong>John Doe</strong> placed a new order
-              <b>Order #1234 - Pizza Combo</b>
-            </p>
-            <p class="time">1m ago</p>
-          </div>
-        </div>
-        <div class="notif_card unread">
-          <img src="images/person.png" alt="avatar" />
-          <div class="description">
-            <p class="user_activity">
-              <strong>Jane Smith</strong> added items to the cart
-            </p>
-            <p class="time">5m ago</p>
-          </div>
-        </div>
-        <div class="notif_card unread">
-          <img src="images/person.png" alt="avatar" />
-          <div class="description">
-            <p class="user_activity">
-              <strong>Pizza Palace</strong> confirmed your order
-              <strong class="link">Order #1234</strong>
-            </p>
-            <p class="time">1 day ago</p>
-          </div>
-        </div>
-        <div>
-          <div class="notif_card">
-            <div class="message_card">
-              <img
-                src="images/person.png"
-                alt="avatar"
-              />
-              <div class="description">
-                <p class="user_activity">
-                  <strong>Delivery Team</strong> updated your delivery status
-                </p>
-                <p class="time">5 days ago</p>
-              </div>
-            </div>
-          </div>
-          <div class="message">
-            <p>
-              Hello, your order is out for delivery. Estimated delivery time is
-              30 minutes.
-            </p>
-          </div>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications</title>
+    <style>
+        /* Add styles for the clear button if needed */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fffcfc; /* White background */
+            color: #191717; /* Red text color */
+        }
 
-        <div class="notif_card">
-          <img src="images/person.png" alt="avatar" />
-          <div class="description">
-            <p class="user_activity">
-              <strong>Mary Johnson</strong> left a review on your restaurant
-            </p>
-            <p class="time">1 week ago</p>
-          </div>
-          <!-- <img
-            src=""
-            class="food_img"
-            alt="food"
-          /> -->
+    
+
+        #notifications {
+            text-align: center;
+        }
+
+        .notification {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #3c3939; /* Red background */
+            color: #ffffff; /* White text color */
+            border-radius: 5px;
+        }
+
+        #clear-notifications-btn {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #db3f3f; /* Red background */
+            color: #ffffff; /* White text color */
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out; /* Add transition effect */
+        }
+
+        #clear-notifications-btn:hover {
+            background-color: #ce3737; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Notifications</h1>
+    <div id="notifications-container">
+        <div id="notifications">
+            {% for notification in notifications %}
+            <div class="notification">
+                <p>{{ notification.message }}</p>
+                <small>{{ notification.timestamp }}</small>
+            </div>
+            {% endfor %}
         </div>
-        <div class="notif_card">
-          <img src="images/person.png" alt="avatar" />
-          <div class="description">
-            <p class="user_activity">
-              <strong>David Williams</strong> placed a new order
-              <b>Order #5678 - Sushi Platter</b>
-            </p>
-            <p class="time">2 weeks ago</p>
-          </div>
-        </div>
-        <div class="notif_card">
-          <img src="images/person.png" alt="avatar" />
-          <div class="description">
-            <p class="user_activity">
-              <strong>Tasty Tacos</strong> updated your order status
-              <strong class="link">Order #5678</strong>
-            </p>
-            <p class="time">2 weeks ago</p>
-          </div>
-        </div>
-      </main>
     </div>
 
-    <script src="n.js"></script>
-  </body>
+    <button id="clear-notifications-btn">Clear All Notifications</button>
+
+    <script>
+        function fetchNotifications() {
+            fetch('/notifications')
+            .then(response => response.json())
+            .then(data => {
+                const notificationsContainer = document.getElementById('notifications');
+                notificationsContainer.innerHTML = ''; // Clear existing notifications
+                data.notifications.forEach(notification => {
+                    const notificationElement = document.createElement('div');
+                    notificationElement.classList.add('notification');
+                    notificationElement.innerHTML = `<p>${notification.message}</p><small>${notification.timestamp}</small>`;
+                    notificationsContainer.appendChild(notificationElement);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        document.getElementById('clear-notifications-btn').addEventListener('click', function() {
+            document.getElementById('notifications').innerHTML = ''; // Simply clear the notifications display
+        });
+
+        // Poll for new notifications every 30 seconds
+        setInterval(fetchNotifications, 30000);
+
+        // Fetch once on page load
+        fetchNotifications();
+    </script>
+    
+</body>
 </html>

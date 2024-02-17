@@ -2,62 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order History</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+            background-color: white; /* Set the background color to white */
+            color: rgb(37, 34, 34); /* Set the text color to red */
+            font-family: Arial, sans-serif; /* Use a common font family */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
         }
 
         header {
-            background-color: #d77b7b;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
+            background-color: red; /* Set the header background color to red */
+            color: white; /* Set the header text color to white */
+            text-align: center; /* Center-align text in the header */
+            padding: 10px; /* Add padding to the header */
         }
 
         section {
-            padding: 20px;
+            text-align: center; /* Center-align text in the section */
+            margin: 20px; /* Add margin around the section */
         }
 
-        #order-history {
-            max-width: 800px;
-            margin: 0 auto;
+        ul {
+            list-style-type: none; /* Remove default list styles */
+            padding: 0; /* Remove default padding for the list */
         }
 
-        #order-history h2 {
-            color: #333;
+        li {
+            margin-bottom: 10px; /* Add margin between list items */
         }
 
-        .order {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #fff;
+        /* Styles for the notification and clear all button */
+        .notification, .clear-all {
+            background-color: red; /* Set the button background color to red */
+            color: white; /* Set the button text color to white */
+            padding: 10px 20px; /* Add padding to the buttons */
+            margin: 10px; /* Add margin around the buttons */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            border: none; /* Remove button border */
+            border-radius: 5px; /* Add border-radius for rounded corners */
+            transition: 0.4s;
         }
-
-        .order-details {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .order-details span {
-            font-weight: bold;
-        }
-
-        .order-items {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .order-items li {
-            margin-bottom: 5px;
+        .notification:hover, .clear-all:hover {
+            background-color: white; /* Change background color on hover */
+            color: red; /* Change text color on hover */
         }
     </style>
 </head>
@@ -65,37 +54,20 @@
     <header>
         <h1>Order History</h1>
     </header>
-
     <section>
-        <div id="order-history">
-            <h2>Your Order History</h2>
+        {% if order_history %}
+            <ul>
+                {% for order in order_history %}
+                    <li>An order of ${{ order.bill_amount }} was placed on {{ order.timestamp }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No orders have been placed yet.</p>
+        {% endif %}
 
-            <div class="order">
-                <div class="order-details">
-                    <span>Order Number:</span>
-                    <span>#123456</span>
-                </div>
-
-                <div class="order-details">
-                    <span>Date:</span>
-                    <span>2024-02-12</span>
-                </div>
-
-                <div class="order-details">
-                    <span>Total Cost:</span>
-                    <span>$30.00</span>
-                </div>
-
-                <h3>Ordered Items:</h3>
-                <ul class="order-items">
-                    <li>Item 1 - $10.00</li>
-                    <li>Item 2 - $15.00</li>
-                    <li>Item 3 - $5.00</li>
-                </ul>
-            </div>
-
-            <!-- Add more order entries as needed -->
-        </div>
+        <!-- Notification and Clear All buttons -->
+        <button class="notification">Notification</button>
+        <button class="clear-all">Clear All</button>
     </section>
 </body>
 </html>
