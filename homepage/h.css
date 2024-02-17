@@ -13,6 +13,30 @@ body{
     position: relative;
     background-color: white;
 }
+.links a {
+    position: relative;
+    color: indianred;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px 0;
+    display: inline-block;
+}
+
+.links a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    border-bottom: 2px solid indianred;
+    transition: width 0.4s linear; /* Added transition property for width */
+}
+
+.links a:hover:before {
+    width: 100%;
+}
+
 
 /* nav{
     z-index: 10;
