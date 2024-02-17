@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #ca7070;
+    background-color: #e64040;
     color: #fff;
     padding: 10px;
     text-align: center;
@@ -47,7 +47,7 @@ section {
 }
 
 .order-btn {
-    background-color: #cd6060;
+    background-color: #df3838;
     color: #fff;
     padding: 10px;
     border: none;
@@ -67,7 +67,7 @@ section {
 }
 
 .quantity-btn {
-    background-color: #cd6060;
+    background-color: #e23535;
     color: #fff;
     padding: 5px;
     border: none;
