@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Wallet </title>
+    <title>Wallet</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fff; /* Set background color to white */
-            color: #333; /* Set text color to dark gray */
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Set the body to full viewport height */
         }
 
         header {
-            background-color: #ef3b3b; /* Set background color to red */
+            background-color: #ef3b3b;
             color: #fff;
             padding: 10px;
             text-align: center;
@@ -22,21 +27,20 @@
 
         section {
             padding: 20px;
+            text-align: center;
         }
 
         #balance {
             font-size: 20px;
             font-weight: bold;
-            color: #e93131; /* Set text color to red */
-        }
-
-        #transaction-history {
-            margin-top: 20px;
+            color: #e93131;
+            margin-bottom: 20px;
         }
 
         #transaction-history ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
         }
 
         #transaction-history li {
@@ -57,7 +61,7 @@
 
         #add-funds-btn {
             padding: 10px;
-            background-color: #ed3c3c; /* Set background color to red */
+            background-color: #ed3c3c;
             color: #fff;
             border: none;
             cursor: pointer;
@@ -67,11 +71,11 @@
 </head>
 <body>
     <header>
-        <h1> Wallet </h1>
+        <h1>Wallet</h1>
     </header>
 
     <section>
-        <div id="balance">Current Balance: $50.00</div>
+        <div id="balance"><h2>Current Balance: $50.00</h2></div>
 
         <div id="transaction-history">
             <h2>Transaction History</h2>
