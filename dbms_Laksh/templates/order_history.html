@@ -4,6 +4,52 @@
     <meta charset="UTF-8">
     <title>Order History</title>
     <!-- Styles -->
+    <style>
+        body {
+            background-color: white; /* Set the background color to white */
+            color: rgb(37, 34, 34); /* Set the text color to red */
+            font-family: Arial, sans-serif; /* Use a common font family */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+
+        header {
+            background-color: red; /* Set the header background color to red */
+            color: white; /* Set the header text color to white */
+            text-align: center; /* Center-align text in the header */
+            padding: 10px; /* Add padding to the header */
+        }
+
+        section {
+            text-align: center; /* Center-align text in the section */
+            margin: 20px; /* Add margin around the section */
+        }
+
+        ul {
+            list-style-type: none; /* Remove default list styles */
+            padding: 0; /* Remove default padding for the list */
+        }
+
+        li {
+            margin-bottom: 10px; /* Add margin between list items */
+        }
+
+        /* Styles for the notification and clear all button */
+        .notification, .clear-all {
+            background-color: red; /* Set the button background color to red */
+            color: white; /* Set the button text color to white */
+            padding: 10px 20px; /* Add padding to the buttons */
+            margin: 10px; /* Add margin around the buttons */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            border: none; /* Remove button border */
+            border-radius: 5px; /* Add border-radius for rounded corners */
+            transition: 0.4s;
+        }
+        .notification:hover, .clear-all:hover {
+            background-color: white; /* Change background color on hover */
+            color: red; /* Change text color on hover */
+        }
+    </style>
 </head>
 <body>
     <header>
